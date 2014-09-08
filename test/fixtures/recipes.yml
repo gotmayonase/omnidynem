@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  blueprint_type_id: 1
+  name: MyString
+  requires_all_certs: false
+  description: MyText
+  subtype_id: 1
+
+two:
+  blueprint_type_id: 1
+  name: MyString
+  requires_all_certs: false
+  description: MyText
+  subtype_id: 1
