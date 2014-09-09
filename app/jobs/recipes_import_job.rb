@@ -21,6 +21,7 @@ class RecipesImportJob < ActiveJob::Base
 
     def insert_recipe(id, data)
       recipe = Recipe.new
+      recipe.id = id
       update_recipe(recipe, data)
     end
 

@@ -1,3 +1,5 @@
 class Certification < ActiveRecord::Base
-  self.primary_key = :id
+
+  has_and_belongs_to_many :yields, class_name: 'Item', join_table: 'certifications_yields'
+
 end

@@ -10,7 +10,6 @@ class CreateRecipeInputs < ActiveRecord::Migration
       t.integer :output_index
       t.integer :recipe_id
       t.index [:recipe_id, :item_id]
-      t.index :id
 
       t.timestamps
     end

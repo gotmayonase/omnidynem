@@ -1,18 +1,26 @@
 class CreateItems < ActiveRecord::Migration
   def change
-    create_table :items, id: false do |t|
-      t.integer :id, options: 'PRIMARY KEY', null: false
-      t.string :name
-      t.text :description
-      t.integer :ability_id
-      t.integer :icon_id
-      t.integer :level
-      t.string :module_type
-      t.integer :power_level
-      t.string :quality
+    create_table :items do |t|
+      t.integer :stack_size
+      t.string :rarity
+      # "constraints": {
+      #   "cpu": 0,
+      #   "mass": 0,
+      #   "power": 0
+      # },
+      # "certifications": null,
+      t.string :web_icon_stem
+      # "character_scalars": null,
+      # "flags": {
+      #   "resource": true
+      # },
       t.string :type
+      t.string :name
+      t.integer :required_level
+      t.integer :item_level
+      t.integer :sub_type_id
+      t.text :description
       t.string :web_icon
-      t.index :id
 
       t.timestamps
     end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140904030814) do
+ActiveRecord::Schema.define(version: 20140908211804) do
 
   create_table "certification_outputs", force: true do |t|
     t.integer "certification_id"
@@ -20,35 +20,69 @@ ActiveRecord::Schema.define(version: 20140904030814) do
 
   add_index "certification_outputs", ["certification_id", "recipe_id"], name: "index_certification_outputs_on_certification_id_and_recipe_id", using: :btree
 
-  create_table "certifications", id: false, force: true do |t|
-    t.integer  "id",          null: false
+  create_table "certifications", force: true do |t|
     t.string   "name"
     t.string   "web_icon"
     t.integer  "xp"
     t.text     "description"
+    t.integer  "cert_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "certifications", ["id"], name: "index_certifications_on_id", using: :btree
+  create_table "certifications_yields", force: true do |t|
+    t.integer "certification_id"
+    t.integer "item_id"
+  end
 
-  create_table "items", id: false, force: true do |t|
-    t.integer  "id",          null: false
+  add_index "certifications_yields", ["certification_id", "item_id"], name: "index_certifications_yields_on_certification_id_and_item_id", using: :btree
+
+  create_table "frame_restrictions", force: true do |t|
+    t.integer  "frame_id"
+    t.integer  "perk_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "frame_restrictions", ["frame_id"], name: "index_frame_restrictions_on_frame_id", using: :btree
+  add_index "frame_restrictions", ["perk_id"], name: "index_frame_restrictions_on_perk_id", using: :btree
+
+  create_table "frames", force: true do |t|
     t.string   "name"
-    t.text     "description"
-    t.integer  "ability_id"
-    t.integer  "icon_id"
-    t.integer  "level"
-    t.string   "module_type"
-    t.integer  "power_level"
-    t.string   "quality"
+    t.string   "thumb"
+    t.string   "image"
+    t.string   "text"
     t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "items", force: true do |t|
+    t.integer  "stack_size"
+    t.string   "rarity"
+    t.string   "web_icon_stem"
+    t.string   "type"
+    t.string   "name"
+    t.integer  "required_level"
+    t.integer  "item_level"
+    t.integer  "sub_type_id"
+    t.text     "description"
     t.string   "web_icon"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "items", ["id"], name: "index_items_on_id", using: :btree
+  create_table "perks", force: true do |t|
+    t.string   "type"
+    t.string   "name"
+    t.text     "description"
+    t.integer  "cost"
+    t.integer  "level"
+    t.integer  "frame_id"
+    t.string   "image"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "recipe_inputs", force: true do |t|
     t.integer  "material_type_id"
@@ -63,7 +97,6 @@ ActiveRecord::Schema.define(version: 20140904030814) do
     t.datetime "updated_at"
   end
 
-  add_index "recipe_inputs", ["id"], name: "index_recipe_inputs_on_id", using: :btree
   add_index "recipe_inputs", ["recipe_id", "item_id"], name: "index_recipe_inputs_on_recipe_id_and_item_id", using: :btree
 
   create_table "recipe_outputs", force: true do |t|
@@ -73,8 +106,7 @@ ActiveRecord::Schema.define(version: 20140904030814) do
 
   add_index "recipe_outputs", ["item_id", "recipe_id"], name: "index_recipe_outputs_on_item_id_and_recipe_id", using: :btree
 
-  create_table "recipes", id: false, force: true do |t|
-    t.integer  "id",                 null: false
+  create_table "recipes", force: true do |t|
     t.integer  "blueprint_type_id"
     t.string   "name"
     t.boolean  "requires_all_certs"
@@ -83,8 +115,6 @@ ActiveRecord::Schema.define(version: 20140904030814) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "recipes", ["id"], name: "index_recipes_on_id", using: :btree
 
   create_table "required_certifications", force: true do |t|
     t.integer "certification_id"
