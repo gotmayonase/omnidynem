@@ -26,6 +26,10 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'ruby-progressbar'
 gem 'will_paginate'
+gem 'delayed_job_active_record'
+gem 'acts_as_taggable_on'
+# gem 'rails_admin', github: 'sferik/rails_admin'
+
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

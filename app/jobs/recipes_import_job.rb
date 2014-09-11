@@ -4,7 +4,7 @@ class RecipesImportJob < ActiveJob::Base
 
   def perform(filepath)
     json_data = File.read(filepath)
-    json = eval(json_data)[0]
+    json = JSON.parse(json_data)[0]
     pbar = ProgressBar.create(title: 'Recipes', total: json.count)
     json.each do |id, data|
       if recipe = Recipe.find_by(id: id)
